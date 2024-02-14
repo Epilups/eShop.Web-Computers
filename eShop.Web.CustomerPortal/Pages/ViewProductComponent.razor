@@ -1,0 +1,75 @@
+﻿@page "/product/{id:int}"
+
+@inject NavigationManager NavigationManager
+@inject IViewProductUseCase viewProductUseCase
+@inject IAddProductToCartUseCase  addProductToCartUseCase
+
+
+<div>
+    <div class="row">
+        <div class="col-3">
+            <h3>Product Details</h3>
+            <div class="card">
+                <div class="card-body">
+                    <img src="@product.ImageLink" style="max-height: 50%; max-width: 50%;"/>
+                    <h5 class="card-title">@product.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@product.Brand</h6>
+                    <hr/>
+                    <p>
+                        Price: <label style="color:darkred">@product.Price.ToString("c")</label>
+                    </p>
+                    <p class="card-text">@product.Description</p>
+                </div>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <button class="btn btn-primary" @onclick="AddToCart">Add to Cart</button>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+        
+        <div class="col-9">
+            <h3>Component specifications</h3>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Case:</strong> @product.Case</li>
+                        <li class="list-group-item"><strong>Power Supply:</strong> @product.PSU</li>
+                        <li class="list-group-item"><strong>Motherboard:</strong> @product.MotherBoard</li>
+                        <li class="list-group-item"><strong>Processor:</strong> @product.Processor</li>
+                        <li class="list-group-item"><strong>Processor Cooler:</strong> @product.ProcessorCooler</li>
+                        <li class="list-group-item"><strong>RAM:</strong> @product.RAM</li>
+                        <li class="list-group-item"><strong>Graphics card:</strong> @product.Graphics</li>
+                        <li class="list-group-item"><strong>SSD:</strong> @product.SSD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+<NavLink href="products">Back to Products</NavLink>
+
+@code {
+    private Product product;
+
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Id > 0)
+            product = viewProductUseCase.Execute(Id);
+
+    }
+
+    private void AddToCart()
+    {
+        addProductToCartUseCase.Execute(product.ProductId);
+        NavigationManager.NavigateTo("/");
+    }
+}

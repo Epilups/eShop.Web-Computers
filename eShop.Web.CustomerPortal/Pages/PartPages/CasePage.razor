@@ -1,0 +1,47 @@
+﻿@page "/select/case"
+@using eShop.Web.CustomerPortal.Models
+@using eShop.Web.CustomerPortal.Services
+@inject ComponentRepository ComponentRepository
+
+<h3>Select Case</h3>
+
+<div class="row">
+    @if (Cases != null)
+    {
+        @foreach (var Case in Cases)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Case.Name</h5>
+                        <p class="card-text">
+                            <strong>Price:</strong> $@Case.Price
+                        </p>
+                        <p class="card-text">
+                            <strong>Color:</strong> @Case.Color
+                        </p>
+                        <p class="card-text">
+                            <strong>Type:</strong> @Case.Type
+                        </p>
+                        <p class="card-text">
+                            <strong>Side Panel:</strong> @Case.SidePanel
+                        </p>
+                        <p class="card-text">
+                            <strong>External Volume:</strong> @Case.ExternalVolume
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<Cases> Cases;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Cases = ComponentRepository.GetCases().ToList();
+    }
+}

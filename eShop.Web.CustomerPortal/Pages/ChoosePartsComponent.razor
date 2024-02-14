@@ -1,0 +1,83 @@
+﻿@page "/chooseparts"
+@inject NavigationManager NavigationManager
+
+<h3>Choose PC Parts</h3>
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Case)">Select Case</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Cpu)">Select CPU</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Gpu)">Select GPU</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Ram)">Select RAM</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Motherboard)">Select Motherboard</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Memory)">Select Memory</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.InternalDrive)">Select Internal Drive</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.ExternalDrive)">Select External Drive</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.CpuCooler)">Select CPU Cooler</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.CaseFans)">Select Case Fans</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.PSU)">Select PSU</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Headphones)">Select Headphones</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Keyboard)">Select Keyboard</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Monitor)">Select Monitor</button>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary btn-block" @onclick="() => SelectComponent(ComponentType.Mouse)">Select Mouse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private void SelectComponent(ComponentType componentType)
+    {
+        var sanitizedComponentName = componentType.ToString().ToLower();
+        NavigationManager.NavigateTo($"/select/{sanitizedComponentName}");
+    }
+
+    public enum ComponentType
+    {
+        Case,
+        Cpu,
+        Gpu,
+        Ram,
+        Motherboard,
+        Memory,
+        InternalDrive,
+        ExternalDrive,
+        CpuCooler,
+        CaseFans,
+        PSU,
+        Headphones,
+        Keyboard,
+        Monitor,
+        Mouse
+    }
+}
